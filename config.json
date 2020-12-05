@@ -1,0 +1,39 @@
+{
+  "server_config": {
+    "host": "0.0.0.0",
+    "port": 1502,
+    "path": "/webhook",
+    "secret": {
+      "github": "githubSecretHere",
+      "flat": "simpleSecret"
+    },
+    "directories": {
+      "logs": "logs"
+    }
+  },
+  "actions": [
+    {
+      "events": [
+        {
+          "event": "custom",
+          "action": "echo this is so simple use case - test ok"
+        }
+      ]
+    },
+    {
+      "headers": {
+        "X-GitHub-Event": "push"
+      },
+      "payload": {
+        "repository.name": "node-hook-action"
+      },
+      "events": [
+        {
+          "event": "push",
+          "action": "echo node-hook-action push - must be tested"
+        }
+      ]
+    }
+
+  ]
+}
