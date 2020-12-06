@@ -1,5 +1,10 @@
 # node hook action
 
+Provide a simple Express Node application that listen for incomming query (Webhooks). A flat json config file define shell action to do on incomming query.
+- support github webhooks,
+- support header value condition,
+- support json payload value condition.
+
 Inspired by [RazvanCristian/node-git-webhook](https://github.com/RazvanCristian/node-git-webhook/blob/master/src/index.ts)
 
 ## How to use ?
