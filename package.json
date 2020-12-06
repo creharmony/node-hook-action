@@ -2,7 +2,7 @@
   "name": "node-hook-action",
   "version": "1.0.0",
   "description": "Sample node express webhook application that trigger shell commands",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "mocha --unhandled-rejections=strict tests/*.test.js"
   },
@@ -25,10 +25,16 @@
   },
   "homepage": "https://github.com/creharmony/node-hook-action#readme",
   "dependencies": {
+    "async": "^3.2.0",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
+    "jsonpath": "^1.0.2",
+    "mocha": "^8.2.1",
     "moment": "^2.29.1",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "supertest": "^6.0.1"
   }
 }

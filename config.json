@@ -5,7 +5,7 @@
     "path": "/webhook",
     "secret": {
       "github": "githubSecretHere",
-      "flat": "simpleSecret"
+      "custom": "simpleFlatSecret"
     },
     "directories": {
       "logs": "logs"
@@ -16,21 +16,21 @@
       "events": [
         {
           "event": "custom",
-          "action": "echo this is so simple use case - test ok"
+          "action": "echo this is so simple use case"
         }
       ]
     },
     {
       "headers": {
-        "X-GitHub-Event": "push"
+        "x-github-event": "push"
       },
       "payload": {
-        "repository.name": "node-hook-action"
+        "$.repository.name": "node-hook-action"
       },
       "events": [
         {
           "event": "push",
-          "action": "echo node-hook-action push - must be tested"
+          "action": "echo github node-hook-action on push"
         }
       ]
     }
