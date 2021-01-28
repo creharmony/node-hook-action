@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+require('../.')()
+.catch(console.error);
+
+/*
+  you could also use directly following command line:
+  node -e 'require(".")()'
+*/

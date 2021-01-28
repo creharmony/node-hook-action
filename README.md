@@ -1,33 +1,40 @@
 # node hook action
 
-Provide a simple Express Node application that listen for incomming query (Webhooks). A flat json config file define shell action to do on incomming query.
-- support github webhooks,
-- support header value condition,
-- support json payload value condition.
+[![NPM](https://nodei.co/npm/node-hook-action.png?compact=true)](https://npmjs.org/package/node-hook-action)
+
+Provide a simple Express Node application that listen for incoming queries (Webhooks). 
+A flat json config file define shell action to do on incoming queries.
+
+Node-hook-action supports:
+- github webhooks,
+- header value condition,
+- json payload value condition.
 
 Inspired by [RazvanCristian/node-git-webhook](https://github.com/RazvanCristian/node-git-webhook/blob/master/src/index.ts)
 
 ## How to use ?
 
 - create a sample webhook configuration file. Like [config.json](config.json)
-- install me
+- install node-hook-action as dependency
 
 ```
 npm install node-hook-action
 ```
 
-- run me !
+- run the server.
 ```
 node -e 'require("node-hook-action")()'
 ```
 
-- try me :
+- try the client in another console !
 ```
-./simpleSecretSample.sh
+# if you didn't clone the repository, simply copy examples/ scripts
+./examples/webhookPostExample.sh
 ```
-## JSON config file values
 
-* `server_config` : Express app config 
+## JSON config file content
+
+* `server_config` : Hook Express server config 
 * `server_config.path` : Webhook path 
 * `server_config.secret` : which kind of secret does your webhook queries are using ? at least one secret must be filled.
 * `server_config.secret.github` : to set when using github webhooks. Set github webhook secret value here.
@@ -42,3 +49,26 @@ The value is an expected string at json path location in webhook JSON payload.
 * `actions.events`: per event action(s). 
 * `actions.events.event`: (github use case) value of `x-github-event` header. (custom use case) set to `custom`
 * `actions.events.action`: shell command to execute.
+* `actions.events.action.async=true`: shell async command to execute.
+
+There is a ready to use [config.json](config.json) at root directory, that match related [examples](./examples), 
+and [tests](./tests).
+
+## How to contribute
+[![Build Status](https://travis-ci.com/creharmony/node-hook-action.svg?branch=main)](https://travis-ci.com/creharmony/node-hook-action)
+
+You're not a dev ? just submit an issue (bug, improvements, questions). Or else:
+* Clone
+* Manual tests
+```
+npm start
+# or
+# ./bin/www
+# then play samples
+./examples/xxxx.sh
+```
+* Mocha tests
+```
+npm run test
+```
+* you could also fork, feature branch, then submit a pull request.
