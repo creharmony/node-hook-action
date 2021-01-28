@@ -2,9 +2,10 @@
   "name": "node-hook-action",
   "version": "0.0.0",
   "description": "Sample node express webhook application that trigger shell commands",
-  "main": "src/server.js",
+  "main": "src/makeServer",
   "scripts": {
-    "test": "mocha --unhandled-rejections=strict tests/*.test.js"
+    "test": "mocha --unhandled-rejections=strict tests/*.test.js",
+    "testAsync": "set ENABLE_ASYNC_TESTS=true&& mocha --unhandled-rejections=strict tests/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "mocha": "^8.2.1",
     "moment": "^2.29.1",
     "shelljs": "^0.8.4",
-    "supertest": "^6.0.1"
+    "supertest": "^6.0.1",
+    "uuid": "^8.3.2"
   }
 }

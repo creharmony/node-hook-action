@@ -5,7 +5,7 @@
     "path": "/webhook",
     "secret": {
       "github": "githubSecretHere",
-      "custom": "simpleFlatSecret"
+      "custom": "customFlatSecret"
     },
     "directories": {
       "logs": "logs"
@@ -13,10 +13,22 @@
   },
   "actions": [
     {
+      "headers": {
+        "x-try": "asyncSample"
+      },
       "events": [
         {
           "event": "custom",
-          "action": "echo this is so simple use case"
+          "action": "echo Async use case - before sleep... && sleep 8 && echo Async use case - ... after 8 sec",
+          "async": true
+        }
+      ]
+    },
+    {
+      "events": [
+        {
+          "event": "custom",
+          "action": "echo Hello World Action"
         }
       ]
     },
