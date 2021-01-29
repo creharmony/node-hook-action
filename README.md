@@ -58,7 +58,7 @@ and [tests](./tests).
 [![Build Status](https://travis-ci.com/creharmony/node-hook-action.svg?branch=main)](https://travis-ci.com/creharmony/node-hook-action)
 
 You're not a dev ? just submit an issue (bug, improvements, questions). Or else:
-* Clone
+* Clone or play with [codesandbox](https://codesandbox.io/s/node-hook-action-vwinq)
 * Manual tests
 ```
 npm start

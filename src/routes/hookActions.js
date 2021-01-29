@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 function apiRoutes(options) {
-  var { config, service } = options;
+  var { config, service, logger, listeningUrl } = options;
 
   router.get('/:actionId', function(req, res, next) {
       if (!service.isXTokenValid(req)) {
