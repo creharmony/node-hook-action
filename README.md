@@ -55,7 +55,6 @@ There is a ready to use [config.json](config.json) at root directory, that match
 and [tests](./tests).
 
 ## How to contribute
-[![Build Status](https://travis-ci.com/creharmony/node-hook-action.svg?branch=main)](https://travis-ci.com/creharmony/node-hook-action)
 
 You're not a dev ? just submit an issue (bug, improvements, questions). Or else:
 * Clone or play with [codesandbox](https://codesandbox.io/s/node-hook-action-vwinq)
@@ -72,3 +71,12 @@ npm start
 npm run test
 ```
 * you could also fork, feature branch, then submit a pull request.
+
+
+### Services or activated bots
+
+| badge  | name   | description  |
+|--------|-------|:--------|
+| [![Build Status](https://travis-ci.com/creharmony/node-hook-action.svg?branch=main)](https://travis-ci.com/creharmony/node-hook-action) |[Travis-ci](https://travis-ci.com/creharmony/node-hook-action)|Continuous tests.
+|  |[Houndci](https://houndci.com/)|JavaScript  automated review (configured by `.hound.yml`)|
+| [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)|[gren](https://github.com/github-tools/github-release-notes)|[Release notes](https://github.com/creharmony/node-hook-action/releases) automation|
