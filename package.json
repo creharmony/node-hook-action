@@ -1,6 +1,6 @@
 {
   "name": "node-hook-action",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Sample node express webhook application that trigger shell commands",
   "main": "src/makeServer",
   "scripts": {
