@@ -4,6 +4,7 @@
   "description": "Sample node express webhook application that trigger shell commands",
   "main": "src/makeServer",
   "scripts": {
+    "preinstall": "npm-force-resolutions",
     "test": "mocha --unhandled-rejections=strict tests/*.test.js",
     "testAsync": "set ENABLE_ASYNC_TESTS=true&& mocha --unhandled-rejections=strict tests/*.test.js"
   },
@@ -38,7 +39,11 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^9.1.3",
+    "mocha": "^9.1.4",
+    "npm-force-resolutions": "^0.0.10",
     "supertest": "^6.0.1"
+  },
+  "resolutions": {
+    "nanoid": "^3.2.0"
   }
 }
