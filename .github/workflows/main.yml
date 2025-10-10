@@ -1,5 +1,5 @@
 # node-hook-action continuous integration
-name: nha-ci
+name: main
 
 # Controls when the action will run. 
 on:
@@ -21,46 +21,57 @@ jobs:
     strategy:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [16.x]
+        node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-#        cache: 'npm'
-#        cache-dependency-path: |
-#          package-lock.json
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          # version from package.json
+          run_install: false
 
-    - name: Install dependencies
-      # - run: npm ci # need package.json.lock
-      run: npm install
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-    - name: Run tests
-      env:
-        MT_MONGO_USER: root
-        MT_MONGO_PWD: mypass
-      run: npm run test
+      - name: Install dependencies
+        run: |
+          echo ::group::Install dependencies
+          echo "install"
+          pnpm --silent install
 
-    - name: Report coverage
-      continue-on-error: true
-      uses: romeovs/lcov-reporter-action@v0.2.16
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        lcov-file: ./coverage/lcov.info
+      - name: CHECK - pnpm audit and comment on PR
+        if: ${{ github.event.pull_request }}
+        uses: JamesRobertWiseman/pnpm-audit@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          level: moderate   # 'low'|'moderate'|'high'|'critical'
+          fails: false # true to fail the build if vulnerabilities are found
+          single_comment: true # true to only post one comment
+          inline: true # true to emit audit findings directly in the workflow logs using GitHub annotation syntax
 
-    - name: Npm audit
-      uses: oke-py/npm-audit-action@v1.7.1
-      with:
-        audit_level: moderate
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        dedupe_issues: true
+      - name: Run tests
+        env:
+          MT_MONGO_USER: root
+          MT_MONGO_PWD: mypass
+        run: pnpm test
 
-    - name: Publish NpmJS package
-      if: github.ref == 'refs/heads/npmjs'
-      run: |
-        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_DEPLOY_TOKEN }}" > .npmrc
-        npm whoami # rely on .npmrc
-        npm publish
+      - name: COVERAGE - Report coverage on pull request
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: andybelltree/lcov-reporter-action@v1.7.0 # https://github.com/andybelltree/lcov-reporter-action/releases
+        with:
+          lcov-file: ./coverage/lcov.info
+          filter-changed-files: true
+
+      - name: Publish NpmJS package
+        if: github.ref == 'refs/heads/npmjs'
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_DEPLOY_TOKEN }}" > .npmrc
+          npm whoami # rely on .npmrc
+          npm publish

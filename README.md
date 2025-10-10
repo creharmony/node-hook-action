@@ -18,7 +18,7 @@ Inspired by [RazvanCristian/node-git-webhook](https://github.com/RazvanCristian/
 - install node-hook-action as dependency
 
 ```
-npm install node-hook-action
+pnpm install node-hook-action
 ```
 
 - run the server.
@@ -54,23 +54,9 @@ The value is an expected string at json path location in webhook JSON payload.
 There is a ready to use [config.json](config.json) at root directory, that match related [examples](./examples), 
 and [tests](./tests).
 
-## How to contribute
+## How to contribute ?
 
-You're not a dev ? just submit an issue (bug, improvements, questions). Or else:
-* Clone or play with [codesandbox](https://codesandbox.io/s/node-hook-action-vwinq)
-* Manual tests
-```
-npm start
-# or
-# ./bin/www
-# then play samples
-./examples/xxxx.sh
-```
-* Mocha tests
-```
-npm run test
-```
-* you could also fork, feature branch, then submit a pull request.
+cf. [CONTRIBUTING](./.github/CONTRIBUTING.md)
 
 
 ### Services or activated bots
