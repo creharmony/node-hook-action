@@ -17,3 +17,23 @@ You could also be critic with existing ticket/PR : all constructive feedbacks ar
 * launch tests using `pnpm test`. 
 
 Think about environment setup.
+
+
+## HowTo create a fresh version
+- use patch or minor or major workflow
+
+this will make a new version and on version tag, the main ci workflow will push a new npmjs version too.
+
+## HowTo release using `gh`
+
+Install and create automatically a draft release version using [gh client](https://cli.github.com/)
+- the version tag must exist
+
+Example to create v1.1.0
+```bash
+gh release create v1.1.0 --draft --generate-notes
+```
+this will make a new draft release. Verify it in [releases list](https://github.com/creharmony/node-hook-action/releases)
+
+- ⚠️ the repository apply immutable releases since #15 (`v1.1.0`), so you can't modify a release once published
+- publish the release when ready
