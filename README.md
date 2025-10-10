@@ -66,3 +66,4 @@ cf. [CONTRIBUTING](./.github/CONTRIBUTING.md)
 | [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)|[Houndci](https://houndci.com/)|JavaScript  automated review (configured by `.hound.yml`)|
 | ![CI/CD](https://github.com/creharmony/node-hook-action/actions/workflows/main.yml/badge.svg) |Github actions|Continuous tests.
 | [![Audit](https://github.com/creharmony/node-hook-action/actions/workflows/audit.yml/badge.svg)](https://github.com/creharmony/node-hook-action/actions/workflows/audit.yml) |Github actions|Continuous vulnerability audit.
+|--------|-------|:--------|
