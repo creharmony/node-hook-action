@@ -1,5 +1,7 @@
-module.exports.matrix = {
- '/actions':require('./hookActions'),
- '/':require('./hook'),
- '/*':require('./notFound')
-};
+import actions from './hookActions.js';
+import root from './hook.js';
+
+export const matrix = {
+    '/actions': actions,
+    '/': root
+}

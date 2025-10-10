@@ -2,7 +2,8 @@
   "name": "node-hook-action",
   "version": "1.0.3",
   "description": "Sample node express webhook application that trigger shell commands",
-  "main": "src/makeServer",
+  "main": "src/WebhookServerLauncher.js",
+  "type": "module",
   "scripts": {
     "test": "mocha --unhandled-rejections=strict tests/*.test.js",
     "testAsync": "set ENABLE_ASYNC_TESTS=true&& mocha --unhandled-rejections=strict tests/*.test.js"
@@ -27,19 +28,20 @@
   "homepage": "https://github.com/creharmony/node-hook-action#readme",
   "dependencies": {
     "async": "^3.2.0",
-    "body-parser": "^1.19.0",
-    "crypto": "^1.0.1",
-    "express": "^4.17.1",
+    "body-parser": "^2.2.0",
+    "espress": "^0.0.0",
+    "express": "^5.1.0",
+    "http-errors": "^2.0.0",
     "jsonpath": "^1.0.2",
     "moment": "^2.29.1",
-    "shelljs": "^0.8.4",
-    "uuid": "^8.3.2"
+    "shelljs": "^0.10.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "mocha": "^9.1.4",
-    "supertest": "^6.0.1"
+    "chai": "^6.2.0",
+    "chai-http": "^5.1.2",
+    "mocha": "^11.7.4",
+    "supertest": "^7.1.4"
   },
   "pnpm": {
     "overrides": {

@@ -1,7 +1,7 @@
-const uuidv4 = require('uuid').v4;
-const crypto = require("crypto");
+import { v4 as uuidv4 } from 'uuid';
+import crypto from "crypto";
 
-class HookService {
+export default class HookService {
 
   constructor(config) {
     if (!config || !config.server_config) {
@@ -99,4 +99,3 @@ class HookService {
   }
 
 }
-module.exports = HookService;

@@ -1,7 +1,7 @@
-const fs = require("fs");
-const moment = require("moment");
+import fs from 'fs';
+import moment from 'moment';
 
-class HookLogger {
+export default class HookLogger {
 
   constructor(config) {
     if (!config || !config.server_config) {
@@ -56,5 +56,3 @@ class HookLogger {
   }
 
 }
-
-module.exports = HookLogger;

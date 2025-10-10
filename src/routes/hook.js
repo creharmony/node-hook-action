@@ -1,12 +1,13 @@
-const router = require('express').Router();
-const shelljs = require("shelljs");
-const jp = require("jsonpath");
+import express from 'express';
+import shelljs from 'shelljs';
+import jp from 'jsonpath';
+const router = express.Router();
 
-function apiRoutes(options) {
-  var { config, service, logger, listeningUrl } = options;
+export default function apiRoutes(options) {
+    const {config, service, logger, listeningUrl} = options;
 
-  router.post('/', function(req, res) {
-        var eventType = null;
+    router.post('/', function(req, res) {
+        let eventType = null;
         // DEBUG // console.log('REQ HEADERS' + JSON.stringify(req.headers));
         // DEBUG // console.log('POST BODY', req.body);
         if (service.isXGithub(req)) {
@@ -37,47 +38,47 @@ function apiRoutes(options) {
 
         const actions = config.actions.filter((configAction) => {
           if (configAction.headers) {// does headers conditions match the request headers ?
-            var matchedHeaders = Object.keys(configAction.headers).filter((configActionHeader) => {
-                return (req.headers[configActionHeader] === configAction.headers[configActionHeader]);
-            });
-            if (matchedHeaders.length !== Object.keys(configAction.headers).length) {
+              const matchedHeaders = Object.keys(configAction.headers).filter((configActionHeader) => {
+                  return (req.headers[configActionHeader] === configAction.headers[configActionHeader]);
+              });
+              if (matchedHeaders.length !== Object.keys(configAction.headers).length) {
               return false;
             }
           }
           if (configAction.payload) {// does body conditions match the request body ?
-            var matchedPayloadConditions = Object.keys(configAction.payload).filter((jsonPath) => {
-                // DEBUG // console.info("jp.paths(req.body, " + jsonPath + ") :" + jp.value(req.body, jsonPath));
-                return (jp.value(req.body, jsonPath) === configAction.payload[jsonPath]);
-            });
-            if (matchedPayloadConditions.length !== Object.keys(configAction.payload).length) {
+              const matchedPayloadConditions = Object.keys(configAction.payload).filter((jsonPath) => {
+                  // DEBUG // console.info("jp.paths(req.body, " + jsonPath + ") :" + jp.value(req.body, jsonPath));
+                  return (jp.value(req.body, jsonPath) === configAction.payload[jsonPath]);
+              });
+              if (matchedPayloadConditions.length !== Object.keys(configAction.payload).length) {
               return false;
             }
           }
-          var matchedEvents = configAction.events.filter((actionEvent) => actionEvent.event === eventType);
-          // condition are done, lets play!
+            const matchedEvents = configAction.events.filter((actionEvent) => actionEvent.event === eventType);
+            // condition are done, lets play!
           return matchedEvents && matchedEvents.length > 0;
         });
 
         if (!actions || actions.length < 1) {
             logger.error(`${service.getSourceIp(req)} | nothing to be done`);
-            res.status(304);//https://http.cat/304
+            res.status(304);
             res.end();
             return;
         }
         // DEBUG // console.log('actions : ' + JSON.stringify(actions));
-        var answered = false;
+        let answered = false;
         actions.forEach((todoAction) => todoAction.events.forEach((actionEvent) => {
           if (actionEvent.event !== eventType) {
             return;
           }
           const tpl = eval("`" + actionEvent.action + "`");
           if (actionEvent.async && actionEvent.async === true){
-            var actionId = service.generateUUID();
-            service.pushAsyncAction(actionId);
+              const actionId = service.generateUUID();
+              service.pushAsyncAction(actionId);
             shelljs.exec(tpl, {}, function(code, stdout, stderr) {
-              var wasSuccess = (code === 0);
-              var actionResult = {actionId, wasSuccess, code, stderr, stdout};
-              logger.info(`${service.getSourceIp(req)} | ${eventType} | async action (id='${actionId}') '${actionEvent.action}' done - code:'${code}'`);
+                const wasSuccess = (code === 0);
+                const actionResult = {actionId, wasSuccess, code, stderr, stdout};
+                logger.info(`${service.getSourceIp(req)} | ${eventType} | async action (id='${actionId}') '${actionEvent.action}' done - code:'${code}'`);
               service.doneAsyncAction(actionId, actionResult);
             });
             logger.info(`${service.getSourceIp(req)} | ${eventType} | async action (id='${actionId}') '${actionEvent.action}' CREATED`);
@@ -100,6 +101,3 @@ function apiRoutes(options) {
 
   return router
 }
-
-module.exports.apiRoutes = apiRoutes;
-
