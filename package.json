@@ -1,6 +1,6 @@
 {
   "name": "node-hook-action",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Sample node express webhook application that trigger shell commands",
   "main": "src/WebhookServerLauncher.js",
   "type": "module",
